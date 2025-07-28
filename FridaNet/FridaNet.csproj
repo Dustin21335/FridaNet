@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Platforms>x64</Platforms>
+    <AssemblyName>FridaNet</AssemblyName>
+
+    <PackageId>FridaNet</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Dustin</Authors>
+    <Description>Frida .NET using Frida CLR</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FridaCLR" Version="17.2.14" />
+  </ItemGroup>
+
+   <ItemGroup>
+     <None Include="README.md" Pack="true" PackagePath="\" />
+   </ItemGroup>
+</Project>
