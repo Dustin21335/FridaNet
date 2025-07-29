@@ -1,5 +1,6 @@
 ﻿using Frida;
 using FridaDevice = Frida.Device;
+using Process = System.Diagnostics.Process;
 
 namespace FridaNet
 {
@@ -51,19 +52,49 @@ namespace FridaNet
             return Attach(GetProcess(pid));
         }
 
-        public FridaNetSession? Attach(FridaNetProcess? fridaNetProcess)
-        { 
-            return fridaNetProcess != null ? new FridaNetSession(FridaDevice.Attach(fridaNetProcess.Pid)) : null;
+        public FridaNetSession? Attach(Process process)
+        {
+            return Attach(GetProcess(process));
         }
 
-        public List<FridaNetProcess> GetProcesses(uint[]? pids, Scopes scope)
+        public FridaNetSession? Attach(FridaNetProcess? fridaNetProcess)
+        { 
+            return fridaNetProcess != null ? new FridaNetSession(FridaDevice.Attach(fridaNetProcess.Pid), fridaNetProcess) : null;
+        }
+
+        public void Resume(string name)
+        {
+            Resume(GetProcess(name));
+        }
+
+        public void Resume(uint pid)
+        {
+            Resume(GetProcess(pid));
+        }
+
+        public void Resume(Process process)
+        {
+            Resume(GetProcess(process));
+        }
+
+        public void Resume(FridaNetProcess? fridaNetProcess)
+        {
+            if (fridaNetProcess != null) FridaDevice.Resume(fridaNetProcess.Pid);
+        }
+
+        public List<FridaNetProcess> GetProcessesByPids(uint[]? pids, Scopes scope)
         {
             return FridaDevice.EnumerateProcesses(pids, (Scope)scope).Select(p => new FridaNetProcess(p)).ToList();
         }
 
+        public List<FridaNetProcess> GetProcessesByProcesses(Process[]? processes, Scopes scope)
+        {
+            return FridaDevice.EnumerateProcesses(processes?.Select(p => (uint)p.Id).ToArray(), (Scope)scope).Select(p => new FridaNetProcess(p)).ToList();
+        }
+
         public List<FridaNetProcess> GetProcesses(Scopes scope)
         {
-            return GetProcesses(null, scope);
+            return GetProcessesByPids(null, scope);
         }
 
         public FridaNetProcess? GetProcess(string Name)
@@ -74,6 +105,31 @@ namespace FridaNet
         public FridaNetProcess? GetProcess(uint Pid)
         {
             return GetProcesses(Scopes.Full).FirstOrDefault(p => p.Pid == Pid);
+        }
+
+        public FridaNetProcess? GetProcess(Process process)
+        {
+            return GetProcesses(Scopes.Full).FirstOrDefault(p => p.Pid == process.Id);
+        }
+
+        public uint SpawnProcessUint(string processPath, string[]? argv, string[]? envp, string[]? env, string? cwd)
+        {
+            return FridaDevice.Spawn(processPath.Trim(), argv, envp, env, cwd);
+        }
+
+        public uint SpawnProcessUint(string processPath)
+        {
+            return SpawnProcessUint(processPath, null, null, null, null);
+        }
+
+        public FridaNetProcess? SpawnProcess(string processPath, string[]? argv, string[]? envp, string[]? env, string? cwd)
+        {
+            return GetProcess(SpawnProcessUint(processPath.Trim(), argv, envp, env, cwd));
+        }
+
+        public FridaNetProcess? SpawnProcess(string processPath)
+        {
+            return SpawnProcess(processPath, null, null, null, null);
         }
 
         public void Dispose()

@@ -4,16 +4,19 @@ namespace FridaNet
 {
     public class FridaNetSession : IDisposable
     {
-        public FridaNetSession(FridaSession fridaSession)
+        public FridaNetSession(FridaSession fridaSession, FridaNetProcess fridaNetProcess)
         {
             FridaSession = fridaSession;
             Pid = FridaSession.Pid;
+            FridaNetProcess = fridaNetProcess;
             FridaSession.Detached += (s, e) => Detached?.Invoke(s, new FridaNetSessionDetachedEventArgs((FridaNetSessionDetachReason)e.Reason));
         }
 
         public FridaSession FridaSession { get; }
 
         public uint Pid { get; }
+
+        public FridaNetProcess FridaNetProcess { get; }
 
         public event FridaNetSessionDetachedHandler? Detached;
 

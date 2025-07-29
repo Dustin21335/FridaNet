@@ -13,7 +13,10 @@ namespace FridaNet
             Name = FridaProcess.Name;
             Pid = FridaProcess.Pid;
             Process = Process.GetProcessById((int)Pid);
+            Process.Exited += (s, e) => Exited?.Invoke(s, e);
         }
+
+        public event EventHandler? Exited;
 
         public FridaProcess FridaProcess { get; }
 
