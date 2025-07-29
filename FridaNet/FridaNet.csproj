@@ -12,9 +12,14 @@
     <Authors>Dustin</Authors>
     <Description>Frida .NET using Frida CLR</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Dustin21335/FridaNet/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>frida fridanet frida-net dotnet .net hooking instrumentation reverse-engineering</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
