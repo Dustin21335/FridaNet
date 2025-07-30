@@ -14,7 +14,7 @@ namespace FridaNet
                 {
                     JsonElement jsonElement = JsonDocument.Parse(e.Message).RootElement;
                     if (!Enum.TryParse<FridaNetMessageType>(jsonElement.GetProperty("type").GetString() ?? string.Empty, true, out FridaNetMessageType messageType)) messageType = FridaNetMessageType.Send;
-                    Message?.Invoke(s, new FridaNetScriptMessageEventArgs(e.Message, e.Data ?? Array.Empty<byte>(), messageType, jsonElement.GetProperty("payload").GetString() ?? string.Empty));
+                    Message?.Invoke(s, new FridaNetScriptMessageEventArgs(e.Message, e.Data ?? Array.Empty<byte>(), messageType, jsonElement.GetProperty("payload").GetRawText() ?? string.Empty));
                 }
                 catch 
                 {

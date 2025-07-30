@@ -1,11 +1,5 @@
 ﻿namespace FridaNet
 {
-    public enum FridaNetMessageType
-    {
-        Send,
-        Error,
-    }
-
     public class FridaNetScriptMessageEventArgs : EventArgs
     {
         public string Message { get; }
@@ -23,6 +17,13 @@
             MessageType = messageType;
             Payload = payload;
         }
+    }
+
+    public enum FridaNetMessageType
+    {
+        Send,
+        Error,
+        Log,
     }
 
     public delegate void FridaNetScriptMessageHandler(object sender, FridaNetScriptMessageEventArgs e);

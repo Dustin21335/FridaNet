@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Platforms>x64</Platforms>
     <AssemblyName>FridaNet</AssemblyName>
 
     <PackageId>FridaNet</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Dustin</Authors>
     <Description>Frida .NET using Frida CLR</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,6 +19,7 @@
     <RepositoryUrl>https://github.com/Dustin21335/FridaNet/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>frida fridanet frida-net dotnet .net hooking instrumentation reverse-engineering</PackageTags>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
