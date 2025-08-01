@@ -7,7 +7,7 @@
     <AssemblyName>FridaNet</AssemblyName>
 
     <PackageId>FridaNet</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Dustin</Authors>
     <Description>Frida .NET using Frida CLR</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

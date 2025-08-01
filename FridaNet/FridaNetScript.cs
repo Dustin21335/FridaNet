@@ -12,13 +12,13 @@ namespace FridaNet
             {
                 try
                 {
-                    JsonElement jsonElement = JsonDocument.Parse(e.Message).RootElement;
-                    if (!Enum.TryParse<FridaNetMessageType>(jsonElement.GetProperty("type").GetString() ?? string.Empty, true, out FridaNetMessageType messageType)) messageType = FridaNetMessageType.Send;
-                    Message?.Invoke(s, new FridaNetScriptMessageEventArgs(e.Message, e.Data ?? Array.Empty<byte>(), messageType, jsonElement.GetProperty("payload").GetRawText() ?? string.Empty));
+                    JsonElement json = JsonDocument.Parse(e.Message).RootElement;
+                    if (!Enum.TryParse(json.TryGetProperty("type", out JsonElement type) && type.ValueKind == JsonValueKind.String ? type.GetString() : "", true, out FridaNetMessageType messageType)) messageType = FridaNetMessageType.Send;
+                    Message?.Invoke(s, new FridaNetScriptMessageEventArgs(e.Message, e.Data ?? Array.Empty<byte>(), messageType, json.TryGetProperty("payload", out JsonElement payload) ? payload.GetRawText() : ""));
                 }
-                catch 
+                catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to parse message {e.Message}");
+                    Console.WriteLine($"Failed to parse message {e.Message}: {ex.Message}");
                 }
             };
         }
